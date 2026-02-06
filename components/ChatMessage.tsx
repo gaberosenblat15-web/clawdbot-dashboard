@@ -9,7 +9,7 @@ interface ChatMessageProps {
     id: string
     role: 'user' | 'assistant'
     content: string
-    timestamp: Date
+    timestamp: string | Date
   }
   isThinking?: boolean
 }
@@ -17,7 +17,8 @@ interface ChatMessageProps {
 export default function ChatMessage({ message, isThinking }: ChatMessageProps) {
   const isUser = message.role === 'user'
   
-  const formatTime = (date: Date) => {
+  const formatTime = (timestamp: string | Date) => {
+    const date = typeof timestamp === 'string' ? new Date(timestamp) : timestamp
     return new Intl.DateTimeFormat('en-US', {
       hour: 'numeric',
       minute: '2-digit',
